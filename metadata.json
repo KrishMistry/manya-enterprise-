@@ -1,0 +1,8 @@
+{
+  "name": "Manya Enterprise",
+  "description": "Industrial ETP & Environmental Solutions - ETP plant setup, chemical supply, Bectofine bio-culture, chlorination systems, air diffusers, and industrial support services in Vadodara, Gujarat.",
+  "requestFramePermissions": [],
+  "majorCapabilities": [
+    "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
+  ]
+}
