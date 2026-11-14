@@ -19,13 +19,22 @@ async function startServer() {
   app.use('/api', apiRouter);
 
   if (!isProd) {
-    // Development mode: attach Vite dev server middleware
+    // Development mode: serve standalone index.html directly without HMR WebSocket injection
+    const rootIndexPath = path.resolve(__dirname, 'index.html');
+    app.get('/', (_req, res) => {
+      res.sendFile(rootIndexPath);
+    });
+
     const { createServer: createViteServer } = await import('vite');
     const vite = await createViteServer({
-      server: { middlewareMode: true },
-      appType: 'spa',
+      server: { middlewareMode: true, hmr: false, ws: false },
+      appType: 'custom',
     });
     app.use(vite.middlewares);
+
+    app.get('*', (_req, res) => {
+      res.sendFile(rootIndexPath);
+    });
   } else {
     // Production mode: serve compiled frontend from dist directory
     const distPath = path.resolve(__dirname, 'dist');
